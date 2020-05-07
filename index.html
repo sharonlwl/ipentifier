@@ -7,38 +7,24 @@
 <p>Please input the IP you would want to know about:</p>
 
 IP Address: <input id="ip">
-<br>Subnet Mask: <input id="mask"><br>
+<br>Subnet Mask: /<input id="mask"><br>
 <button type="button" onclick="process_ip()">Submit</button>
 
-<p id="text"></p>
+<p id="ip_validation"></p>
 <p id="mask_class"></p>
 
 
 <script>
     function process_ip() {
-        // input
-        var ip, mask;
-        // function variables
-        var validation;
-        // output
-        var mask_class, text;
+        var ip, mask; //input
 
-        // Get the value of the input field with id="ip"
+        // Get the value of the input field
         ip = document.getElementById("ip").value;
         mask = document.getElementById("mask").value;
 
-        if (validate_ip(ip)) {
-            text = "IP OK";
-            validation = true;
-        } else {
-            text = "IP is not valid";
-            validation = false;
+        if (validate_ip(ip) && class_check(mask)) {
+            identify_max_min();
         }
-
-        if (validation) {
-            class_check(mask);
-        }
-        document.getElementById("text").innerHTML = text;
     }
 
     function validate_ip(ip) {
@@ -46,18 +32,26 @@ IP Address: <input id="ip">
         ip_array = ip.split(".");
 
         // If each segment is Not a Number or less than 0 or greater than 255
-        // also check for mask
-        if (validate_seg(ip_array[0]) || validate_seg(ip_array[1]) || validate_seg(ip_array[2]) || validate_seg(ip_array[3])) {
+        if (validate_seg(ip_array[0]) && validate_seg(ip_array[1]) && validate_seg(ip_array[2]) && validate_seg(ip_array[3])) {
+            document.getElementById("ip_validation").innerHTML = "IP OK";
             return true;
         } else {
+            document.getElementById("ip_validation").innerHTML = "IP is invalid";
             return false;
         }
+    }
+    
+    function validate_seg(seg) {
+        if (seg > 0 || seg < 256) {
+            return true;
+        }
+        return false;
     }
 
     function class_check(subnet) {
         var class_result;
 
-        if (IsNaN(subnet) && !validate_seg(subnet)) {
+        if (isNaN(subnet) && !validate_seg(subnet)) {
             class_result = parse('%s is not a valid mask', subnet);
         } else {
             if (subnet <= 8) {
@@ -73,12 +67,9 @@ IP Address: <input id="ip">
             document.getElementById("mask_class").innerHTML = class_result;
         }
     }
-
-    function validate_seg(seg) {
-        if (seg > 0 || seg < 256) {
-            return true;
-        }
-        return false;
+    
+    function identify_max_min() {
+        //TODO: need to work on logic
     }
 </script>
 
