@@ -10,8 +10,8 @@ IP Address: <input id="ip">
 <br>Subnet Mask: /<input id="mask"><br>
 <button type="button" onclick="process_ip()">Submit</button>
 
-<p id="ip_validation"></p>
-<p id="mask_class"></p>
+<span id="ip_validation"></span>
+/<span id="mask_value"></span> <span id="mask_classification"></span>
 
 
 <script>
@@ -40,7 +40,7 @@ IP Address: <input id="ip">
             return false;
         }
     }
-    
+
     function validate_seg(seg) {
         if (seg > 0 || seg < 256) {
             return true;
@@ -51,23 +51,24 @@ IP Address: <input id="ip">
     function class_check(subnet) {
         var class_result;
 
+        document.getElementById("mask_value").innerHTML = subnet;
         if (isNaN(subnet) && !validate_seg(subnet)) {
-            class_result = parse('%s is not a valid mask', subnet);
+            class_result = "is not a valid mask";
         } else {
             if (subnet <= 8) {
-                class_result = parse("/%s is a Class A subnet.", subnet);
+                class_result = "is a Class A subnet.";
             } else if (subnet <= 16) {
-                class_result = parse("/%s is a Class B subnet.", subnet);
+                class_result = "is a Class B subnet.";
             } else if (subnet <= 24) {
-                class_result = parse("/%s is a Class C subnet.", subnet);
+                class_result = "is a Class C subnet.";
             } else {
-                class_result = parse("/%s is a Class D subnet.", subnet);
+                class_result = "is a Class D subnet.";
             }
-
-            document.getElementById("mask_class").innerHTML = class_result;
+            
+            document.getElementById("mask_classification").innerHTML = class_result;
         }
     }
-    
+
     function identify_max_min() {
         //TODO: need to work on logic
     }
