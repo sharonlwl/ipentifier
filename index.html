@@ -6,9 +6,9 @@
 
 <p>Please input the IP you would want to know about:</p>
 
-<input id="ip"><br>
-<input id="mask"><br>
-<button type="button" onclick="process_ip()">Submit</button>
+<p>IP Address: <input id="ip">
+  <br>Subnet Mask: <input id="mask"><br>
+  <button type="button" onclick="process_ip()">Submit</button></p>
 
 <p id="text"></p>
 <p id="mask_class"></p>
@@ -55,20 +55,25 @@ function validate_ip(ip) {
 }
   
 function class_check(subnet) {
-  var subnet_int = parseInt(subnet);
-  if (subnet_int <= 8) {
-    document.getElementById("mask_class").innerHTML = "It is a Class A subnet.";
-  } else if (subnet_int <= 16) {
-    document.getElementById("mask_class").innerHTML = "It is a Class B subnet.";
-  } else if (subnet_int <= 24) {
-    document.getElementById("mask_class").innerHTML = "It is a Class C subnet.";
+  var class_result;
+  
+  if (IsNaN(subnet) && !validate_seg(subnet)) {
+    class_result = parse('%s is not a valid mask', subnet);
   } else {
-    document.getElementById("mask_class").innerHTML = "It is a Class D subnet.";
+    if (subnet <= 8) {
+      class_result = parse("/%s is a Class A subnet.", subnet);
+    } else if (subnet <= 16) {
+      class_result = parse("/%s is a Class B subnet.", subnet);
+    } else if (subnet <= 24) {
+      class_result = parse("/%s is a Class C subnet.", subnet);
+    } else {
+      class_result = parse("/%s is a Class D subnet.", subnet);
   }
+  
+    document.getElementById("mask_class").innerHTML = class_result;
 }
   
 function validate_seg(seg) {
-  seg = parseInt(seg);
   if (seg > 0 || seg < 256) {
     return true;
   }
