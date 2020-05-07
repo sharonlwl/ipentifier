@@ -2,13 +2,16 @@
 <html>
 <body>
 
-<h1>The IPv4 Tool!</h1>
+<h2>iPentifier</h2>
+<p>Please provide the IP you would want to know about:</p>
 
-<p id="demo"></p>
-
-<script>
-document.getElementById("demo").innerHTML = "Hello JavaScript!";
-</script> 
+<form action="process_ip_result.php">
+  <label for="ipv4">IP address: </label><br>
+  <input type="text" id="ipv4" name="ipv4"><br>
+  <label for="mask">Subnet mask: /</label><br>
+  <input type="text" id="mask" name="mask"><br><br>
+  <input type="submit" value="Submit">
+</form>
 
 </body>
 </html>
