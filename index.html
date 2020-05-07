@@ -28,10 +28,10 @@ function process_ip() {
   mask = document.getElementById("mask").value;
   
   if (validate_ip(ip)) {
-    text = "IP not valid";
+    text = "IP OK";
     validation = false;
   } else {
-    text = "IP OK";
+    text = "IP is not valid";
     validation = true;
   }
   
