@@ -10,7 +10,7 @@ public class ip {
   /*
    * @param string ip
    * @param int mask
-   * @return bool
+   * @return bool | ip
    */
   public function __construct(string $ip, int $mask) {
     $ip_array = explode(".", $ip);
@@ -22,7 +22,6 @@ public class ip {
     
     if (validate()) {
       $this->class = class_detect();
-      return true;
     }
     
     return false;
