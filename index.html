@@ -5,9 +5,9 @@
 <h2>iPentifier</h2>
 <p>Please provide the IP you would want to know about:</p>
 
-<form action="process_ip_result.php">
-  <label for="ipv4">IP address: </label><br>
-  <input type="text" id="ipv4" name="ipv4"><br>
+<form action="process_ip_result.js">
+  <label for="ip">IP address: </label><br>
+  <input type="text" id="ip" name="ipv4"><br>
   <label for="mask">Subnet mask: /</label><br>
   <input type="text" id="mask" name="mask"><br><br>
   <input type="submit" value="Submit" onclick="display_result()";>
@@ -15,3 +15,49 @@
 
 </body>
 </html>
+
+
+
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>iPentifier</h2>
+
+<p>Please input the IP you would want to know about:</p>
+
+<input id="ip">
+
+<button type="button" onclick="validate()">Submit</button>
+
+<p id="demo"></p>
+
+<script>
+function validate() {
+  var ip, ip_array, mask;
+
+  // Get the value of the input field with id="ip"
+  ip = document.getElementById("ip").value;
+  ip_array = ip.split(".");
+  mask = document.getElementById("mask").value;
+  
+  // If each segment is Not a Number or less than 0 or greater than 255
+  if (validate_seg(ip_array[0]) || validate_seg(ip_array[1]) || validate_seg(ip_array[2]) || validate_seg(ip_array[3])
+      || validate_seg(mask)) {
+    text = "Input not valid";
+  } else {
+    text = "Input OK";
+  }
+  document.getElementById("demo").innerHTML = text;
+}
+  
+function validate_seg(seg) {
+  if (isNaN(seg) || seg < 0 || seg > 255) {
+    return false;
+  }
+  return true;
+}
+</script>
+
+</body>
+</html> 
