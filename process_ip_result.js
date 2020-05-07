@@ -1,10 +1,13 @@
-<?php
+<script>
 
-var $error = null;
+var error = null;
 
+  // call with <script src="process_ip_result.js"></script>
 function display_result() {
-  if (!isset($_POST['ipv4']) && !isset($_POST['mask'])) {
-    $error = "Either value is not set. Please try again.\n";
+  ip = document.getElementById("ip");
+  mask = document.getElemetnById("mask");
+  if (typeof ip !== 'undefined'&& typeof mask !== 'undefined') {
+    error = "Either value is not set. Please try again.\n";
   } else {
     $ip_object = new ip($_POST['ipv4'], $_POST['mask']);
     if ($ip_object === false) {
@@ -20,4 +23,4 @@ function display_result() {
   }
 }
 
-?>
+</script>
