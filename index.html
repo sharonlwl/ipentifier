@@ -6,9 +6,8 @@
 
 <p>Please input the IP you would want to know about:</p>
 
-<p>IP Address: <input id="ip">
-  <br>Subnet Mask: <input id="mask"><br>
-</p>
+IP Address: <input id="ip">
+<br>Subnet Mask: <input id="mask"><br>
 <button type="button" onclick="process_ip()">Submit</button>
 
 <p id="text"></p>
@@ -16,70 +15,71 @@
 
 
 <script>
-function process_ip() {
-  // input
-  var ip, mask;
-  // function variables
-  var validation;
-  // output
-  var mask_class, text;
-  
-  // Get the value of the input field with id="ip"
-  ip = document.getElementById("ip").value;
-  mask = document.getElementById("mask").value;
-  
-  if (validate_ip(ip)) {
-    text = "IP OK";
-    validation = true;
-  } else {
-    text = "IP is not valid";
-    validation = false;
-  }
-  
-  if (validation) {
-    class_check(mask);
-  }
-  document.getElementById("text").innerHTML = text;
-}
-  
-function validate_ip(ip) {
-  var ip_array, mask;
-  ip_array = ip.split(".");
+    function process_ip() {
+        // input
+        var ip, mask;
+        // function variables
+        var validation;
+        // output
+        var mask_class, text;
 
-  // If each segment is Not a Number or less than 0 or greater than 255
-  // also check for mask
-  if (validate_seg(ip_array[0]) || validate_seg(ip_array[1]) || validate_seg(ip_array[2]) || validate_seg(ip_array[3])) {
-    return true;
-  } else {
-    return false;
-  }
-}
-  
-function class_check(subnet) {
-  var class_result;
-  
-  if (IsNaN(subnet) && !validate_seg(subnet)) {
-    class_result = parse('%s is not a valid mask', subnet);
-  } else {
-    if (subnet <= 8) {
-      class_result = parse("/%s is a Class A subnet.", subnet);
-    } else if (subnet <= 16) {
-      class_result = parse("/%s is a Class B subnet.", subnet);
-    } else if (subnet <= 24) {
-      class_result = parse("/%s is a Class C subnet.", subnet);
-    } else {
-      class_result = parse("/%s is a Class D subnet.", subnet);
-  }
-  
-    document.getElementById("mask_class").innerHTML = class_result;
-}
-  
-function validate_seg(seg) {
-  if (seg > 0 || seg < 256) {
-    return true;
-  }
-  return false;
-}
+        // Get the value of the input field with id="ip"
+        ip = document.getElementById("ip").value;
+        mask = document.getElementById("mask").value;
+
+        if (validate_ip(ip)) {
+            text = "IP OK";
+            validation = true;
+        } else {
+            text = "IP is not valid";
+            validation = false;
+        }
+
+        if (validation) {
+            class_check(mask);
+        }
+        document.getElementById("text").innerHTML = text;
+    }
+
+    function validate_ip(ip) {
+        var ip_array, mask;
+        ip_array = ip.split(".");
+
+        // If each segment is Not a Number or less than 0 or greater than 255
+        // also check for mask
+        if (validate_seg(ip_array[0]) || validate_seg(ip_array[1]) || validate_seg(ip_array[2]) || validate_seg(ip_array[3])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function class_check(subnet) {
+        var class_result;
+
+        if (IsNaN(subnet) && !validate_seg(subnet)) {
+            class_result = parse('%s is not a valid mask', subnet);
+        } else {
+            if (subnet <= 8) {
+                class_result = parse("/%s is a Class A subnet.", subnet);
+            } else if (subnet <= 16) {
+                class_result = parse("/%s is a Class B subnet.", subnet);
+            } else if (subnet <= 24) {
+                class_result = parse("/%s is a Class C subnet.", subnet);
+            } else {
+                class_result = parse("/%s is a Class D subnet.", subnet);
+            }
+
+            document.getElementById("mask_class").innerHTML = class_result;
+        }
+    }
+
+    function validate_seg(seg) {
+        if (seg > 0 || seg < 256) {
+            return true;
+        }
+        return false;
+    }
 </script>
 
 </body>
