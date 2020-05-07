@@ -17,7 +17,7 @@
 <script>
 function process_ip() {
   // input
-  var ip, ip_array, mask;
+  var ip, mask;
   // function variables
   var validation;
   // output
@@ -36,7 +36,7 @@ function process_ip() {
   }
   
   if (validation) {
-    document.getElementById("mask_class").innerHTML = class_check(mask);
+    class_check(mask);
   }
   document.getElementById("text").innerHTML = text;
 }
@@ -51,6 +51,19 @@ function validate_ip(ip) {
     return true;
   } else {
     return false;
+  }
+}
+  
+function class_check(subnet) {
+  var subnet_int = parseInt(subnet);
+  if (subnet_int <= 8) {
+    document.getElementById("mask_class").innerHTML = "It is a Class A subnet.";
+  } else if (subnet_int <= 16) {
+    document.getElementById("mask_class").innerHTML = "It is a Class B subnet.";
+  } else if (subnet_int <= 24) {
+    document.getElementById("mask_class").innerHTML = "It is a Class C subnet.";
+  } else {
+    document.getElementById("mask_class").innerHTML = "It is a Class D subnet.";
   }
 }
   
