@@ -29,10 +29,10 @@ function process_ip() {
   
   if (validate_ip(ip)) {
     text = "IP OK";
-    validation = false;
+    validation = true;
   } else {
     text = "IP is not valid";
-    validation = true;
+    validation = false;
   }
   
   if (validation) {
@@ -69,10 +69,10 @@ function class_check(subnet) {
   
 function validate_seg(seg) {
   seg = parseInt(seg);
-  if (seg > 0 || seg < 255) {
-    return false;
+  if (seg > 0 || seg < 256) {
+    return true;
   }
-  return true;
+  return false;
 }
 </script>
 
