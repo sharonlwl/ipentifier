@@ -3,56 +3,60 @@
 <body>
 
 <h2>iPentifier</h2>
-<p>Please provide the IP you would want to know about:</p>
-
-<form action="process_ip_result.js">
-  <label for="ip">IP address: </label><br>
-  <input type="text" id="ip" name="ipv4"><br>
-  <label for="mask">Subnet mask: /</label><br>
-  <input type="text" id="mask" name="mask"><br><br>
-  <input type="submit" value="Submit" onclick="display_result()";>
-</form>
-
-</body>
-</html>
-
-
-
-<!DOCTYPE html>
-<html>
-<body>
-
-<h2>iPentifier</h2>
 
 <p>Please input the IP you would want to know about:</p>
 
-<input id="ip">
-
-<button type="button" onclick="validate()">Submit</button>
+<input id="ip"><br>
+<input id="mask"><br>
+<button type="button" onclick="process_ip()">Submit</button>
 
 <p id="demo"></p>
+<p id="mask_class"></p>
+
 
 <script>
-function validate() {
+function process_ip() {
+  // input
   var ip, ip_array, mask;
-
+  // function variables
+  var validation;
+  // output
+  var mask_class, text;
+  
   // Get the value of the input field with id="ip"
   ip = document.getElementById("ip").value;
-  ip_array = ip.split(".");
   mask = document.getElementById("mask").value;
   
-  // If each segment is Not a Number or less than 0 or greater than 255
-  if (validate_seg(ip_array[0]) || validate_seg(ip_array[1]) || validate_seg(ip_array[2]) || validate_seg(ip_array[3])
-      || validate_seg(mask)) {
-    text = "Input not valid";
+  if (validate_ip(ip)) {
+    text = "IP not valid";
+    validation = false;
   } else {
-    text = "Input OK";
+    text = "IP OK";
+    validation = true;
   }
-  document.getElementById("demo").innerHTML = text;
+  
+  if (validation) {
+    document.getElementById("mask_class").innerHTML = class_check(mask);
+  }
+  document.getElementById("text").innerHTML = text;
+}
+  
+function validate_ip(ip) {
+  var ip_array, mask;
+  ip_array = ip.split(".");
+
+  // If each segment is Not a Number or less than 0 or greater than 255
+  // also check for mask
+  if (validate_seg(ip_array[0]) || validate_seg(ip_array[1]) || validate_seg(ip_array[2]) || validate_seg(ip_array[3])) {
+    return true;
+  } else {
+    return false;
+  }
 }
   
 function validate_seg(seg) {
-  if (isNaN(seg) || seg < 0 || seg > 255) {
+  seg = parseInt(seg);
+  if (seg < 0 || seg > 255) {
     return false;
   }
   return true;
