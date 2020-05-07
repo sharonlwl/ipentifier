@@ -69,7 +69,7 @@ function class_check(subnet) {
   
 function validate_seg(seg) {
   seg = parseInt(seg);
-  if (seg < 0 || seg > 255) {
+  if (seg > 0 || seg < 255) {
     return false;
   }
   return true;
