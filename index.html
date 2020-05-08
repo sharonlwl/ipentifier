@@ -1,57 +1,60 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Sharon Leung's Toolbox</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<style>
-		body {
-			font-family: Arial;
-			margin: 0;
-		}
-		.header {
-			padding: 60px;
-			text-align: center;
-			background: #669999;
-			color: white;
-			font=size: 30px;
-		}
-		
-		.content {
-		    padding:20px;
-            text-align: left;
-            background: #f5f5f0;
-            color: #141f1f;
-        }
-	</style>
-</head>
 
-<body>
-<div class="header">
-	<h1>iPentifier</h1>
-	<p>Sharon's toolbox</p>
-</div>
+  <head>
+    <title>Sharon Leung's Toolbox</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      body {
+        font-family: Arial;
+        margin: 0;
+      }
 
-<div class="content">
-	<h1>Please put in the IP and subnet mask you would want to know about:</h1>
-	<p>IP Address: <input id="ip" width=10px>
-		<br>Subnet Mask: (slash format) <input id="mask" width=5px>
-	</p>
-	<button type="button" onclick="process_ip()">Submit</button>
-    <p>
+      .header {
+        padding: 60px;
+        text-align: center;
+        background: #669999;
+        color: white;
+        font=size: 30px;
+      }
+
+      .content {
+        padding: 20px;
+        text-align: left;
+        background: #f5f5f0;
+        color: #141f1f;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <div class="header">
+      <h1>iPentifier</h1>
+      <p>Sharon's toolbox</p>
+    </div>
+
+    <div class="content">
+      <h1>Please put in the IP and subnet mask you would want to know about:</h1>
+      <p>IP Address: <input id="ip" width=10px>
+        <br>Subnet Mask: <input id="mask" width=5px>
+      </p>
+      <button type="button" onclick="process_ip()">Submit</button>
+      <p>
         <span id="ip_validation"></span><br>
         <b><span id="mask_value"></span></b> <span id="mask_classification"></span><br>
-        The network address is: <b><span id="network_addr"></span></b><br>
-        The broadcast address is: <b><span id="broadcast_addr"></span></b>
-    </p>
-</div>
+      </p>
+      <p>
+        The network address is <b><span id="network_addr"></span></b><br>
+        The broadcast address is <b><span id="broadcast_addr"></span></b>
+      </p>
+    </div>
 
-<span id="ip_validation"></span><br>
-<span id="mask_value"></span> <span id="mask_classification"></span>
 
+    <script type="text/javascript" src="process_ip.js">
+    </script>
 
-<script type="text/javascript" src="process_ip.js">
-</script>
+  </body>
 
-</body>
-</html> 
+</html>
