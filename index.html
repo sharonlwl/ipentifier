@@ -5,28 +5,7 @@
     <title>Sharon Leung's Toolbox</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-      body {
-        font-family: Arial;
-        margin: 0;
-      }
-
-      .header {
-        padding: 60px;
-        text-align: center;
-        background: #669999;
-        color: white;
-        font=size: 30px;
-      }
-
-      .content {
-        padding: 20px;
-        text-align: left;
-        background: #f5f5f0;
-        color: #141f1f;
-      }
-
-    </style>
+    <link rel="stylesheet" type"text/css" href="ipentifier_style.css">
   </head>
 
   <body>
@@ -36,21 +15,26 @@
     </div>
 
     <div class="content">
-      <h1>Please put in the IP and subnet mask you would want to know about:</h1>
-      <p>IP Address: <input id="ip" width=10px>
-        <br>Subnet Mask: <input id="mask" width=5px>
-      </p>
-      <button type="button" onclick="process_ip()">Submit</button>
-      <p>
-        <span id="ip_validation"></span><br>
-        <b><span id="mask_value"></span></b> <span id="mask_classification"></span><br>
-      </p>
-      <p>
-        The network address is <b><span id="network_addr"></span></b><br>
-        The broadcast address is <b><span id="broadcast_addr"></span></b>
-      </p>
-    </div>
+      <div class="input">
+        <h1>Please put in the IP and subnet mask you would want to know about:</h1>
+        <label for "ip">IP address: </label>
+        <input type="text" id="ip" placeholder="192.168.52.1" pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}.[0-9{3}]">
+        <label for "mask">Subnet Mask: </label>
+        <input type="text" id="mask" placeholder="/24 or 255.255.255.0">
+        <button type="button" onclick="process_ip()">Submit</button>
+      </div>
 
+      <div class="result">
+        <p>
+          <span id="ip_validation"></span><br>
+          <b><span id="mask_value"></span></b> <span id="mask_classification"></span><br>
+        </p>
+        <p>
+          The network address is <b><span id="network_addr"></span></b><br>
+          The broadcast address is <b><span id="broadcast_addr"></span></b>
+        </p>
+      </div>
+    </div>
 
     <script type="text/javascript" src="process_ip.js">
     </script>
