@@ -1,0 +1,59 @@
+.header {
+  padding: 60px;
+
+  background: #669999;
+  color: white;
+
+  text-align: center;
+  font-size: 40px;
+}
+
+.content {
+  background: #f5f5f0;
+  color: #141f1f;
+  font-size: 20px;
+}
+
+.input {
+  padding: 20px;
+  text-align: left;
+}
+
+.result {
+  padding-left: 160px;
+}
+
+body {
+  font-family: Arial;
+  margin: 0;
+}
+
+h1 {
+  text-align: center;
+}
+
+label {
+  width: 250px;
+  padding: 12px 12px 12px 0px; /* T B R L */
+  text-align: right;
+
+  display: inline-block; /* no line-break after element */
+  float: left;
+  clear: left; /* no float on left side */
+}
+
+input[type=text] {
+  border: solid #ccc;
+  border-radius: 4px;
+  padding: 5px 10px; /* T&B R&L */
+  margin: 5px 0;
+
+  float: left;
+  clear: right;
+
+  font-size: 16px;
+}
+
+input[type=text]:focus {
+  border: 3px solid #555;
+}
