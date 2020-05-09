@@ -16,7 +16,7 @@
       }
 
       subnet_check = mask_check(formatted_mask);
-      if (ip_check && subnet_check && formatted_mask !== false) {
+      if (ip_check && subnet_check && formatted_mask !== false && formatted_mask !== 32) {
         var net_addr_array = find_net_addr(ip_array, formatted_mask);
         var bc_addr_array = find_bc_addr(ip_array, formatted_mask);
         net_addr = format_ip_addr(net_addr_array);
@@ -69,6 +69,7 @@
         }
       } else {
         class_result = "is an invalid mask.";
+        check = false;
       }
 
       document.getElementById("mask_classification").innerHTML = class_result;
