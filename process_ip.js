@@ -1,6 +1,6 @@
     function process_ip() {
       var ip, mask; //input
-      var net_addr, bc_addr;
+      var net_addr, bc_addr, is_public;
 
       // Get the value of the input field
       ip = document.getElementById("ip").value;
@@ -15,20 +15,33 @@
         document.getElementById("ip_validation").innerHTML = "IP is invalid.";
       }
 
-      subnet_check = mask_check(formatted_mask);
-      if (ip_check && subnet_check && formatted_mask !== false && formatted_mask !== 32) {
+      var subnet_check = mask_check(formatted_mask);
+      if (ip_check && subnet_check !== 5 && formatted_mask !== false && formatted_mask !== 32) {
+        
+        // find network and broadcast addresses
         var net_addr_array = find_net_addr(ip_array, formatted_mask);
         var bc_addr_array = find_bc_addr(ip_array, formatted_mask);
         net_addr = format_ip_addr(net_addr_array);
         bc_addr = format_ip_addr(bc_addr_array);
+        
+        // determine if
+        is_public = pub_priv_check(ip_array, subnet_check);
+        
+        // format mask again for display purpose
+        formatted_mask = "/" + formatted_mask;
       } else {
         formatted_mask = mask;
         net_addr = "N/A";
         bc_addr = "N/A";
       }
+      // display results
+      // ip_validation is displayed earlier in the function
+      document.getElementById("class_result").style.display = "block";
       document.getElementById("network_addr").innerHTML = net_addr;
       document.getElementById("broadcast_addr").innerHTML = bc_addr;
-      document.getElementById("mask_value").innerHTML = "/" + formatted_mask;
+      // mask_classification is displayed in mask_check()
+      document.getElementById("mask_value").innerHTML = formatted_mask;
+      document.getElementById("public_address").innerHTML = "It is a public address";
     }
 
     function find_net_addr(ip_array, mask) {
@@ -49,31 +62,45 @@
 
     function mask_check(subnet) {
       var class_result, formatted_mask;
-      var check = true;
+      var check;
 
       if (subnet === false) {
         class_result = "is an invalid IP.";
-        check = false;
+        check = 5;
       }
 
       // validate mask
-      if (check && subnet >= 0 && subnet <= 32) {
+      if (check!==5 && subnet >= 0 && subnet <= 32) {
         if (subnet <= 8) {
           class_result = "is a Class A subnet.";
+          check = 1;
         } else if (subnet <= 16) {
           class_result = "is a Class B subnet.";
+          check = 2;
         } else if (subnet <= 24) {
           class_result = "is a Class C subnet.";
+          check = 3;
         } else {
           class_result = "is a Class D subnet.";
+          check = 4;
         }
       } else {
         class_result = "is an invalid mask.";
-        check = false;
+        check = 5;
       }
 
       document.getElementById("mask_classification").innerHTML = class_result;
       return check;
+    }
+    
+    // return true if it is a public address
+    function pub_priv_check(ip_array, subnet_class) {
+      if ((subnet_class == 1 && ip_array[0] == 10)
+      || (subnet_class == 2 && ip_array[0] == 172 && ip_array[1] >= 16 && ip_array[1] <= 31)
+      || (subnet_class == 3 && ip_array[0] == 192 && ip_array[1] == 168)) {
+        return false;
+      }
+      return true;
     }
 
     function valid_ip(ip_array) {
