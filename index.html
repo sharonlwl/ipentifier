@@ -2,29 +2,27 @@
 <html>
 
   <head>
-    <title>Sharon Leung's Toolbox</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>iPentifier</title>
     <link rel="stylesheet" type"text/css" href="ipentifier_style.css">
   </head>
 
   <body>
-    <div class="header">
+    <section class="header">
       <h1>iPentifier</h1>
       <p>Sharon's toolbox</p>
-    </div>
+    </section>
 
-    <div class="content">
-      <div class="input">
-        <h1>Please put in the IP and subnet mask you would want to know about:</h1>
+    <section class="content">
+      <form class="input">
+        <h3>Please put in the IP and subnet mask you would want to know about:</h3>
         <label for "ip">IP address: </label>
-        <input type="text" id="ip" placeholder="192.168.52.1" pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}.[0-9{3}]">
+        <input class="validation" type="text" id="ip" placeholder="192.168.52.1" pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}.[0-9{3}]" title="Invalid IPv4 Address">
         <label for "mask">Subnet Mask: </label>
         <input type="text" id="mask" placeholder="/24 or 255.255.255.0">
         <button type="button" onclick="process_ip()">Submit</button>
-      </div>
+      </form>
 
-      <div class="result">
+      <section class="result" id="class_result">
         <p>
           <span id="ip_validation"></span><br>
           <b><span id="mask_value"></span></b> <span id="mask_classification"></span><br>
@@ -33,8 +31,8 @@
           The network address is <b><span id="network_addr"></span></b><br>
           The broadcast address is <b><span id="broadcast_addr"></span></b>
         </p>
-      </div>
-    </div>
+      </section>
+    </section>
 
     <script type="text/javascript" src="process_ip.js">
     </script>
