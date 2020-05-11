@@ -17,16 +17,16 @@
 
       var subnet_check = mask_check(formatted_mask);
       if (ip_check && subnet_check !== 5 && formatted_mask !== false && formatted_mask !== 32) {
-        
+
         // find network and broadcast addresses
         var net_addr_array = find_net_addr(ip_array, formatted_mask);
         var bc_addr_array = find_bc_addr(ip_array, formatted_mask);
         net_addr = format_ip_addr(net_addr_array);
         bc_addr = format_ip_addr(bc_addr_array);
-        
-        // determine if
+
+        // determine if it is public
         is_public = pub_priv_check(ip_array, subnet_check);
-        
+
         // format mask again for display purpose
         formatted_mask = "/" + formatted_mask;
       } else {
@@ -41,7 +41,11 @@
       document.getElementById("broadcast_addr").innerHTML = bc_addr;
       // mask_classification is displayed in mask_check()
       document.getElementById("mask_value").innerHTML = formatted_mask;
-      document.getElementById("public_address").innerHTML = "It is a public address";
+      if (is_public) {
+        document.getElementById("public_address").innerHTML = "public.";
+      } else {
+        document.getElementById("public_address").innerHTML = "private.";
+      }
     }
 
     function find_net_addr(ip_array, mask) {
@@ -70,7 +74,7 @@
       }
 
       // validate mask
-      if (check!==5 && subnet >= 0 && subnet <= 32) {
+      if (check !== 5 && subnet >= 0 && subnet <= 32) {
         if (subnet <= 8) {
           class_result = "is a Class A subnet.";
           check = 1;
@@ -92,12 +96,12 @@
       document.getElementById("mask_classification").innerHTML = class_result;
       return check;
     }
-    
+
     // return true if it is a public address
     function pub_priv_check(ip_array, subnet_class) {
-      if ((subnet_class == 1 && ip_array[0] == 10)
-      || (subnet_class == 2 && ip_array[0] == 172 && ip_array[1] >= 16 && ip_array[1] <= 31)
-      || (subnet_class == 3 && ip_array[0] == 192 && ip_array[1] == 168)) {
+      if ((subnet_class == 1 && ip_array[0] == 10) ||
+        (subnet_class == 2 && ip_array[0] == 172 && ip_array[1] >= 16 && ip_array[1] <= 31) ||
+        (subnet_class == 3 && ip_array[0] == 192 && ip_array[1] == 168)) {
         return false;
       }
       return true;
